@@ -21,3 +21,8 @@ export const imgs = {
     9: img9,
     10: img10,
 }
+
+export const texts = {
+    title: 'Lorem ipsum dolor sit amet consectetur adipisicing elit',
+    text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto laborum voluptas dolores optio iusto voluptatem, quae reprehenderit dicta tempora asperiores possimus praesentium doloremque dolorum aperiam, eum vel ipsam laboriosam ullam.',
+}
