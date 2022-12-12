@@ -169,11 +169,7 @@ const allFloat = () => {
     overflow: hidden;
     background: #000;
 }
-.wrap{
-    position: relative;
-    outline: 1px solid red;
-    
-}
+
 ol{
     width: 100%;
     height: 100vh;
