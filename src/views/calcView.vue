@@ -1,7 +1,8 @@
 <script setup>
 import { ref } from 'vue';
-
-const sum = ref('0');
+import digiNumComponentVue from '../components/digiNumComponent.vue';
+import digiBoardComponentVue from '../components/digiBoardComponent.vue';
+const sum = ref('');
 const operator = {
     1: {
         id: 1,
@@ -21,70 +22,121 @@ const operator = {
     },
     5: {
         id: 5,
-        val: '.',
+        val: '=',
     },
     6: {
         id: 6,
-        val: '=',
-    },
-    7: {
-        id: 7,
         val: 'C',
     },
 }
+const operation = ref({
+    num1: {
+        id: 1,
+        val: '',
+    },
+    operator: {
+        id: 2,
+        val: '',
+    },
+    num2: {
+        id: 2,
+        val: '',
+    },
+})
 let step = 1;
-const num = [0,1,2,3,4,5,6,7,8,9]
+const num = [1,2,3,4,5,6,7,8,9,0]
 const include = (n) => sum.value.includes(n)
 const end = (n) => sum.value.endsWith(n)
 const start = (n) => sum.value.startsWith(n)
+
 const addNum = (n) => {
-    if(start('0')&&sum.value.length===1){
-        sum.value = n.toString();
-    }else{
-        console.log(n)
-        sum.value += n.toString();
+    if(step===2&&operation.value.operator.val === ''){
+        operation.value.num1.val = '';
+        sum.value = '';
+        step = 1;
     }
+    if(operation.value[`num${step}`].val.length<9&&step!==3){
+        operation.value[`num${step}`].val+=n.toString();
+        sum.value = operation.value[`num${step}`].val;
+        if(operation.value[`num${step}`].val=='0'){
+            operation.value[`num${step}`].val=''
+        }
+    }
+    
 };
 const calc = (id) => {
-    if(id===7){
-        sum.value = '0';
-    }else if(id===6 && end('+')===false && end('-')===false && end('*')===false && end('/')===false && end('.')===false && end('0')===false){
-        sum.value = eval(sum.value).toString()
-    }else if(id<6){
-        if(include('+')||include('-')||include('*')||include('/')){
-            if(end('+')||end('-')||end('*')||end('/')){
-                let ending = sum.value.split('', sum.value.length)
-                ending.pop();
-                sum.value = ending.join('') + operator[id].val
-                step = 2
-            }
+    if(id===6){
+        sum.value = '';
+        operation.value.operator.val = '';
+        operation.value.num1.val = '';
+        operation.value.num2.val = '';
+        step=1;
+    }else if(id===5){
+        sum.value = parseInt(eval(operation.value.num1.val+operation.value.operator.val+operation.value.num2.val)).toString();
+        operation.value.operator.val = '';
+        operation.value.num1.val = sum.value;
+        if(sum.value.length>9){
+            sum.value = 'error';
+            step = 3;
         }else{
-            if(sum.value.endsWith('.')){
-                sum.value = sum.value.split('.')[0]
-                sum.value += operator[id].val
-                step = 2
+            step = 2;
+        };
+        operation.value.num2.val = '';
+        
+    }else if(id<5){
+        if(operation.value.num1.val!=''&&operation.value.num2.val!=''){
+            operation.value.num1.val = parseInt(eval(operation.value.num1.val+operation.value.operator.val+operation.value.num2.val)).toString();
+            sum.value = operation.value.num1.val;
+            if(sum.value.length>9){
+                sum.value = 'error';
+                step = 3;
             }else{
-                console.log(id)
-                sum.value += operator[id].val
-                if(id!==5){
-                    step = 2
-                }
+                step = 2;
             }
+            operation.value.num2.val = '';
+        }else{
+            sum.value = '';
+            step=2;
         }
+        operation.value.operator.val = operator[id].val
+        
     }
 }
 </script>
 
 <template>
-    <section>
-        <p>{{ sum }}</p>
-        <p v-for="n in num" @click="addNum(n)">{{ n }}</p>
-        <p v-for="n in operator" :key="n.id" @click="calc(n.id)">{{ n.val }}</p>
+    <section class="calcBox">
+        <digi-board-component-vue :num="sum" class="digiBoard"/>
+        <div class="numBtns">
+            <p v-for="n in num" @click="addNum(n)" :key="n" :class="`btn numBtn`">{{ n }}</p>
+        </div>
+        <div class="ops">
+            <p v-for="n in operator" :key="n.id" @click="calc(n.id)" :class="`btn`">{{ n.val }}</p>
+        </div>
+        
     </section>
 </template>
 
-<style>
-    *{
-        font-size: 30px;
+<style lang="scss" scoped>
+    .calcBox{
+        outline: 1px solid red;
+        display: flex;
+        flex-wrap: wrap;
+        width: 335px;
+        font-size: 36px;
+        .digiBoard{
+            
+        }
+        .numBtns{
+            width: 75%;
+            display: flex;
+            flex-wrap: wrap;
+            .numBtn{
+                outline: 1px solid red;
+                width: 33.333333%;
+                text-align: center;
+                line-height: 1.8;
+            }
+        }
     }
 </style>
