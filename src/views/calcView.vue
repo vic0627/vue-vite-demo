@@ -109,8 +109,6 @@ const calc = (id) => {
         <digi-board-component-vue :num="sum" class="digiBoard"/>
         <div class="numBtns">
             <p v-for="n in num" @click="addNum(n)" :key="n" :class="`btn numBtn`">{{ n }}</p>
-        </div>
-        <div class="ops">
             <p v-for="n in operator" :key="n.id" @click="calc(n.id)" :class="`btn`">{{ n.val }}</p>
         </div>
         
