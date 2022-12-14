@@ -9,10 +9,10 @@ onMounted(() => {
 onUpdated(() => {
     numRun();
 })
-const numFloat = (e, background = '#333') => {
+const numFloat = (e, background = '#232020') => {
     gsap.to(e, {
         background,
-        duration: .3,
+        duration: .07,
     })
 }
 const color2 = '#ddd';
@@ -158,6 +158,7 @@ const numRun = () => {
 
 <style lang="scss" scoped>
     .numUnit{
+        margin: 10px 0;
         width: 35px;
         height: 46.666666px;
         position: relative;
@@ -174,7 +175,7 @@ const numRun = () => {
             height: 80px;
         }
         .num{
-            background: #333;
+            background: #232020;
             display: block;
             border-radius: 30%;
             width: 60%;

@@ -26,7 +26,7 @@ const num = ref(['','','','','','','','','']);
 .digiBoard{
     display: flex;
     background: #000;
-    border: 10px solid #666;
+    border: 15px solid #666;
     border-radius: 5px;
     overflow: hidden;
 }
