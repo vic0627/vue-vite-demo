@@ -150,7 +150,7 @@ const allFloat = () => {
 <template>
     <section class="box">
         <ol class="ol">
-            <h2 class="title">EFPV</h2>
+            <h2 class="title">TEST</h2>
             <li v-for="n in 10" :class="`li${n}`" @click="toImg">
                 <img :src="imgs[n]">
                 <h3 :class="`h3${n}`">{{ texts.title }}</h3>
@@ -158,7 +158,10 @@ const allFloat = () => {
             </li>
         </ol>
     </section>
-    
+    <p class="text">
+        scroll, then click on the pics.
+        <router-link to="/calc" class="tocalc">點我到計算機</router-link>
+    </p>
 </template>
 
 <style scoped lang="scss">
@@ -169,12 +172,22 @@ const allFloat = () => {
     overflow: hidden;
     background: #000;
 }
-
+.text{
+    color: #fff;
+    position: absolute;
+    font-size: 24px;
+    top: 30%;
+    left: 60px;
+    .tocalc{
+        display: block;
+    }
+}
 ol{
     width: 100%;
     height: 100vh;
     overflow-y: auto;
     position: relative;
+    
     h2{
         color: #fff;
         writing-mode: vertical-lr;
@@ -226,6 +239,7 @@ ol{
             opacity: 0;
             pointer-events: none;
             font-size: 0;
+            text-shadow: 2px 2px 5px #000;
             @media screen and (min-width: 576px) {
                 width: 200px;
                 font-size: 16px;
@@ -244,6 +258,7 @@ ol{
             font-size: 0;
             opacity: 0;
             pointer-events: none;
+            text-shadow: 2px 2px 5px #000;
             @media screen and (min-width: 576px) {
                 top: 80%;
                 width: 200px;

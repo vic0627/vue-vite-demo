@@ -7,7 +7,7 @@ import img6 from '../../assets/scroll/06.jpg';
 import img7 from '../../assets/scroll/07.jpg';
 import img8 from '../../assets/scroll/08.jpg';
 import img9 from '../../assets/scroll/09.jpg';
-import img10 from '../../assets/scroll/010.jpg';
+import img10 from '../../assets/scroll/10.jpg';
 
 export const imgs = {
     1: img1,
